@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Special Didi 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:Poppins,sans-serif;
+    height:100vh;
+    overflow:hidden;
+    background:#000;
+}
+
+/* ---------- COMMON ---------- */
+.page{
+    position:absolute;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    opacity:0;
+    transition:opacity .8s ease;
+}
+.page.active{display:flex;opacity:1}
+
+button{
+    border:none;
+    cursor:pointer;
+    font-weight:700;
+}
+
+.next-btn,.start-btn{
+    padding:14px 42px;
+    border-radius:50px;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    color:#fff;
+    font-size:18px;
+    box-shadow:0 12px 35px rgba(0,0,0,.4);
+}
+.next-btn{display:none;margin-top:25px}
+.next-btn.show{display:inline-block}
+
+/* ---------- FLOATING DECOR ---------- */
+.heart,.butterfly,.sparkle{
+    position:absolute;
+    pointer-events:none;
+}
+.heart{
+    font-size:26px;
+    animation:floatUp 8s linear infinite;
+}
+.butterfly{
+    font-size:30px;
+    animation:fly 10s ease-in-out infinite;
+}
+.sparkle{
+    width:6px;height:6px;
+    background:white;
+    border-radius:50%;
+    box-shadow:0 0 12px white;
+    animation:spark 3s ease-in-out infinite;
+}
+
+@keyframes floatUp{
+    from{transform:translateY(110vh) scale(.5);opacity:0}
+    20%{opacity:1}
+    to{transform:translateY(-10vh) scale(1.2);opacity:0}
+}
+@keyframes fly{
+    0%,100%{transform:translate(0,0)}
+    50%{transform:translate(120px,-120px)}
+}
+@keyframes spark{
+    0%,100%{opacity:0;transform:scale(0)}
+    50%{opacity:1;transform:scale(1.5)}
+}
+
+/* ---------- PAGE 1 ---------- */
+#page1{
+    background:radial-gradient(circle,#111,#000);
+}
+.locked-heart{
+    font-size:90px;
+    display:none;
+    cursor:pointer;
+    animation:pulse 2s infinite;
+}
+@keyframes pulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.15)}
+}
+.message-box{
+    background:#fff;
+    padding:25px;
+    border-radius:22px;
+    margin-top:20px;
+    max-width:90%;
+    display:none;
+}
+.typing-text{
+    font-size:17px;
+    line-height:1.7;
+    color:#222;
+}
+
+/* ---------- PAGE 2 ---------- */
+#page2{
+    background:linear-gradient(135deg,#667eea,#764ba2);
+}
+.panda{
+    font-size:90px;
+    animation:bounce 2.5s infinite;
+}
+@keyframes bounce{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-18px)}
+}
+.panda-message{
+    background:#fff;
+    padding:25px;
+    border-radius:22px;
+    margin-top:20px;
+    max-width:90%;
+}
+
+/* ---------- PAGE 3 ---------- */
+#page3{
+    background:linear-gradient(135deg,#f093fb,#f5576c);
+}
+.code-box{
+    background:#fff;
+    padding:30px;
+    border-radius:22px;
+    width:90%;
+    max-width:400px;
+    text-align:center;
+}
+.code-input{
+    width:100%;
+    padding:14px;
+    border-radius:14px;
+    border:2px solid #f5576c;
+    font-size:18px;
+    margin-top:15px;
+}
+.success-message{
+    display:none;
+    margin-top:15px;
+    background:linear-gradient(135deg,#11998e,#38ef7d);
+    color:#fff;
+    padding:12px;
+    border-radius:14px;
+    font-weight:700;
+}
+
+/* ---------- PAGE 4 ---------- */
+#page4{
+    background:linear-gradient(135deg,#ffecd2,#fcb69f,#ffdee9,#b5fffc);
+}
+.name-title{
+    font-family:Pacifico,cursive;
+    font-size:44px;
+    color:#ff5a7a;
+}
+.final-message-box{
+    background:#fff;
+    padding:26px;
+    border-radius:22px;
+    margin-top:20px;
+    max-width:90%;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+    <button class="start-btn" id="startBtn">Click to Start</button>
+    <div class="locked-heart" id="lockedHeart">🔒❤️</div>
+    <div class="message-box" id="messageBox">
+        <div class="typing-text" id="typingText1"></div>
+    </div>
+    <button class="next-btn" id="nextBtn1">Next →</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+    <div class="panda">🐼</div>
+    <div class="panda-message">
+        <div class="typing-text" id="pandaText"></div>
+    </div>
+    <button class="next-btn" id="nextBtn2">Next →</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+    <div class="code-box">
+        <div class="typing-text" id="codePrompt"></div>
+        <input class="code-input" id="codeInput" placeholder="Type any cute word 💕">
+        <div class="success-message" id="successMsg">🎉 Unlocked Successfully!</div>
+    </div>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="page4">
+    <div class="name-title">SUPRIYA</div>
+    <div class="final-message-box">
+        <div class="typing-text" id="finalMessage"></div>
+    </div>
+</div>
+
+<script>
+/* -------- EMOJI SAFE TYPING -------- */
+function typeText(text,id,speed){
+    const el=document.getElementById(id);
+    el.innerHTML="";
+    const chars=Array.from(text);
+    let i=0;
+    function run(){
+        if(i<chars.length){
+            el.innerHTML+=chars[i++];
+            setTimeout(run,speed);
+        }else{
+            if(id==="typingText1")nextBtn1.classList.add("show");
+            if(id==="pandaText")nextBtn2.classList.add("show");
+        }
+    }
+    run();
+}
+
+/* -------- PAGE SWITCH -------- */
+function go(page){
+    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+    setTimeout(()=>document.getElementById("page"+page).classList.add("active"),150);
+}
+
+/* -------- DECOR -------- */
+function spawn(type,emoji){
+    const el=document.createElement("div");
+    el.className=type;
+    if(emoji)el.innerHTML=emoji;
+    el.style.left=Math.random()*100+"%";
+    el.style.top=Math.random()*100+"%";
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),12000);
+}
+setInterval(()=>spawn("heart","💕"),1200);
+setInterval(()=>spawn("butterfly","🦋"),3000);
+setInterval(()=>spawn("sparkle"),800);
+
+/* -------- FLOW -------- */
+startBtn.onclick=()=>{
+    startBtn.style.display="none";
+    lockedHeart.style.display="block";
+};
+
+lockedHeart.onclick=()=>{
+    lockedHeart.innerHTML="❤️";
+    setTimeout(()=>{
+        lockedHeart.style.display="none";
+        messageBox.style.display="block";
+        typeText(
+            "You are the cutest Didi ever 🥰 I am so lucky to have you. You make my life brighter every day 💖",
+            "typingText1",40
+        );
+    },400);
+};
+
+nextBtn1.onclick=()=>{
+    go(2);
+    setTimeout(()=>{
+        typeText(
+            "Hi Supriya Didi 🐼✨ This panda has something sweet to tell you 💕",
+            "pandaText",40
+        );
+    },300);
+};
+
+nextBtn2.onclick=()=>{
+    go(3);
+    setTimeout(()=>{
+        typeText(
+            "Type any word to unlock the final surprise 🎁",
+            "codePrompt",40
+        );
+    },300);
+};
+
+codeInput.addEventListener("input",()=>{
+    if(codeInput.value.length>=3){
+        successMsg.style.display="block";
+        setTimeout(()=>{
+            go(4);
+            setTimeout(()=>{
+                typeText(
+                    "You are not just my Didi, you are my safe place 🌸 Your love, care and smile mean everything to me. Stay happy always 💕🦋",
+                    "finalMessage",35
+                );
+            },300);
+        },1500);
+    }
+});
+</script>
+
+</body>
+</html>
